@@ -14,11 +14,11 @@ request.onupgradeneeded = function(event) {
     let articles = db.createObjectStore('articles', {autoIncrement: true});
 }
 
-request.onsuccess = function(event) {
-    db = event.target.result;
-
+function loadList() {
     var tx = db.transaction("articles", "readwrite");
     var store = tx.objectStore("articles");
+
+    articlelist.innerHTML = '';
 
     var request = store.getAll();
     request.onsuccess = function(event) {
@@ -39,7 +39,12 @@ request.onsuccess = function(event) {
           a.getElementsByTagName("span")[3].textContent = articles[i].desc;
           articlelist.appendChild(a);
         }
-    }   
+    }
+}
+
+request.onsuccess = function(event) {
+    db = event.target.result;
+    loadList();
 };
 
 /*
@@ -63,6 +68,7 @@ function loadUrl(e) {
 
             setTimeout(function() {
                 e.target.value = '';
+                loadList();
             }, 1000);
         });
 }

@@ -8,13 +8,12 @@ body {
     width: 100vw;
     background: rgb(7,32,96);
     background: linear-gradient(130deg, rgba(7,32,96,1) 0%, rgba(106,9,121,1) 50%, rgba(255,0,119,1) 100%);
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 #content {
     margin: 40px auto 0 auto;
     padding: 30px;
-    height: calc(100vh - 80px);
     width: 800px;
     background-color: #eee;
     text-align: center;
