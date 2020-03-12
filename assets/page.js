@@ -50,7 +50,6 @@ target.addEventListener('paste', (event) => {
 function loadUrl(e) {
     fetch('fetchpage.php?url=' + encodeURI(e.target.value))
         .then(resp => {
-            console.log(resp);
             return resp.json();
         })
         .then(json => {
@@ -60,7 +59,9 @@ function loadUrl(e) {
             json.url = e.target.value;
             store.add(json);
 
-            e.target.value = '';            
+            setTimeout(function() {
+                e.target.value = '';
+            }, 1000);
         });
 }
 
