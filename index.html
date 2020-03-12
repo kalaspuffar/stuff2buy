@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Stuff to buy</title>
-    <style>
-        html, body {
-            padding: 0;
-            margin: 0;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Stuff to buy</title>
+        <link href="assets/style.css" rel="stylesheet">
+        <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <div id="content">
+            <img alt="Stuff to buy" src="assets/logo.svg" />
 
-        body {
-            height: 100vh;
-            width: 100vw;
-            background: rgb(7,32,96);
-            background: linear-gradient(130deg, rgba(7,32,96,1) 0%, rgba(106,9,121,1) 50%, rgba(255,0,119,1) 100%);
-            overflow: hidden;
-        }
+            <div id="maincontent">
 
-        #content {
-            margin: 40px auto 0 auto;
-            padding: 30px;
-            height: calc(100vh - 80px);
-            width: 800px;
-            background-color: #eee;
-            text-align: center;
-            border-radius: 5px;
-        }
-    
-        p {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 20pt;
-        }
-    </style>
-</head>
-<body>
-    <div id="content">
-        <img alt="Stuff to buy" src="images/logo.svg" />
+                <div class="fullwidth mdc-text-field mdc-text-field--with-leading-icon">
+                    <i class="material-icons mdc-text-field__icon">link</i>
+                    <input class="mdc-text-field__input" id="urlinput" onchange="loadUrl(event)">
+                    <div class="mdc-line-ripple"></div>
+                    <label for="text-field-hero-input" class="mdc-floating-label">Paste URL here to add to your list</label>
+                </div>
 
-        <p>We are working on making a good solution and will release as soon as a feature is available.</p>    
-    </div>
-</body>
+                <ul class="white mdc-list mdc-list--two-line" id="articlelist">                 
+                </ul>                    
+            </div>
+        </div>
+        
+        <template>
+            <li class="mdc-list-item">
+                <span class="mdc-list-item__graphic" aria-hidden="true"><img width="50" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/></span>
+                <span class="mdc-list-item__text">
+                    <span class="mdc-list-item__primary-text">Two-line item</span>                
+                    <span class="mdc-list-item__secondary-text">Secondary text</span>
+                </span>
+            </li>
+        </template>
+
+        <script src="assets/page.js"></script>
+    </body>
 </html>
