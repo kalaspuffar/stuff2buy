@@ -42,10 +42,12 @@ request.onsuccess = function(event) {
     }   
 };
 
+/*
 const target = document.getElementById('urlinput');
 target.addEventListener('paste', (event) => {
     loadUrl(event);
 });
+*/
 
 function loadUrl(e) {
     fetch('fetchpage.php?url=' + encodeURI(e.target.value))
