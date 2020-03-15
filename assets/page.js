@@ -35,7 +35,8 @@ function loadList() {
           }
           a = document.importNode(item, true);
           a.getElementsByTagName("img")[0].src = articles[i].img;
-          a.getElementsByTagName("span")[2].textContent = articles[i].title;
+          a.getElementsByTagName("span")[2].innerHTML = 
+            '<a target="_blank" href="' + articles[i].url + '">' + articles[i].title + "</a>";
           a.getElementsByTagName("span")[3].textContent = articles[i].desc;
           articlelist.appendChild(a);
         }
