@@ -35,7 +35,7 @@ if(!isset($_GET["id"])) {
                     <i class="material-icons mdc-text-field__icon">link</i>
                     <input class="mdc-text-field__input" id="urlinput" onchange="loadUrl(event)">
                     <div class="mdc-line-ripple"></div>
-                    <label for="text-field-hero-input" class="mdc-floating-label">Paste product URL here and press enter</label>
+                    <label for="urlinput" class="mdc-floating-label">Paste product URL here and press enter</label>
                 </div>
 
                 <ul class="white mdc-list mdc-list--two-line" id="articlelist">                 
@@ -54,6 +54,8 @@ if(!isset($_GET["id"])) {
             </li>
         </template>
 
-        <script src="assets/page.js"></script>
+        <script>
+            <?php echo require_once("assets/page.js") ?>
+        </script>
     </body>
 </html>
