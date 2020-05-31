@@ -70,6 +70,10 @@ if(!isset($_GET["id"])) {
 
         <script>
             <?php echo require_once("assets/page.js") ?>
+
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js');
+            };
         </script>
     </body>
 </html>
