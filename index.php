@@ -33,9 +33,13 @@ if(!isset($_GET["id"])) {
         <meta name="theme-color" content="#b63ff6" />
 
         <title>Stuff to buy</title>
+ 
+        <link rel="preload" href="/external/material-components-web.min.css" as="style">
+        <link rel="preload" href="/external/material-components-web.min.js" as="script">
+        <link rel="preload" href="/external/material-icons.css" as="style">
+
         <link href="/external/material-components-web.min.css" rel="stylesheet">
-        <script src="/external/material-components-web.min.js"></script>
-        <link href="/external/material-icons.css" rel="stylesheet">
+        <link href="/external/material-icons.css" rel="stylesheet" rel="preload">
         <style>
             <?php echo require_once("assets/style.css") ?>
         </style>
@@ -69,6 +73,7 @@ if(!isset($_GET["id"])) {
             </li>
         </template>
 
+        <script src="/external/material-components-web.min.js"></script>
         <script>
             <?php echo require_once("assets/page.js") ?>
 
