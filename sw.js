@@ -8,9 +8,17 @@ var appShellFiles = [
   '/assets/icons/icon-192x192.png',
   '/assets/icons/icon-384x384.png',
   '/assets/icons/icon-512x512.png',
+  '/assets/icons/maskable_icon-72x72.png',
+  '/assets/icons/maskable_icon-96x96.png',
+  '/assets/icons/maskable_icon-128x128.png',
+  '/assets/icons/maskable_icon-144x144.png',
+  '/assets/icons/maskable_icon-152x152.png',
+  '/assets/icons/maskable_icon-192x192.png',
+  '/assets/icons/maskable_icon-384x384.png',
+  '/assets/icons/maskable_icon-512x512.png',  
   '/assets/logo.svg',
-  '/assets/style.css',
   '/manifest.json',
+  '/index.php',
 ];
 
 self.addEventListener('install', (e) => {
