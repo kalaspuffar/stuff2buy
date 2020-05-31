@@ -1,3 +1,16 @@
+<?php
+function uniqueId() {
+    $bytes = random_bytes(42);
+    $url = base64_encode($bytes);
+    $url = str_replace("+", "-", $url);
+    $url = str_replace("/", "_", $url);
+    return $url;
+}
+if(!isset($_GET["id"])) {
+    header("Refresh:0; url=?id=" . uniqueId());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -35,6 +48,7 @@
                     <span class="mdc-list-item__primary-text">Two-line item</span>                
                     <span class="mdc-list-item__secondary-text">Secondary text</span>
                 </span>
+                <span class="mdc-list-item__meta material-icons" aria-hidden="true">delete</span>                
             </li>
         </template>
 
