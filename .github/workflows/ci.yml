@@ -6,6 +6,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'  
+          extensions: :opcache
       - run: npm install && npm install -g @lhci/cli@0.4.x
-      - run: npm run build
       - run: lhci autorun --upload.target=temporary-public-storage
