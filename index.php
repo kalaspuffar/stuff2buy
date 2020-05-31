@@ -18,10 +18,12 @@ if(!isset($_GET["id"])) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Stuff to buy</title>
-        <link href="assets/style.css" rel="stylesheet">
         <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
         <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <style>
+            <?php echo require_once("assets/style.css") ?>
+        </style>
     </head>
     <body>
         <div id="content">
