@@ -33,16 +33,16 @@ if(!isset($_GET["id"])) {
         <meta name="theme-color" content="#b63ff6" />
 
         <title>Stuff to buy</title>
-        <link href="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.css" rel="stylesheet">
-        <script src="https://unpkg.com/material-components-web@v4.0.0/dist/material-components-web.min.js"></script>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="/external/material-components-web.min.css" rel="stylesheet">
+        <script src="/external/material-components-web.min.js"></script>
+        <link href="/external/material-icons.css" rel="stylesheet">
         <style>
             <?php echo require_once("assets/style.css") ?>
         </style>
     </head>
     <body>
         <div id="content">
-            <img alt="Stuff to buy" src="assets/logo.svg" />
+            <img id="logo" alt="Stuff to buy" src="assets/logo.svg" />
 
             <div id="maincontent">
 
