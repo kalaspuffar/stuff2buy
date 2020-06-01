@@ -18,11 +18,6 @@ var appShellFiles = [
     '/assets/icons/maskable_icon-512x512.png',
     '/assets/logo.svg',
     '/manifest.json',
-    '/external/material-components-web.min.css.map',
-    '/external/material-components-web.min.css',
-    '/external/material-components-web.min.js',
-    '/external/material-icons.css',
-    '/external/material-icons.woff2'
 ];
 
 self.addEventListener('install', (e) => {
@@ -62,7 +57,7 @@ self.addEventListener('fetch', (e) => {
         return;
     }
 
-    if (url.pathname == '/loaddata.php' || url.pathname == '/savedata.php') {
+    if (url.pathname == '/loaddata.php' || url.pathname == '/savedata.php' || url.pathname == '/fetchpage.php') {
         e.respondWith(fetch(e.request).then((response) => {
             console.log('[Service Worker] Fetching resource from network: ' + e.request.url);
             return response;

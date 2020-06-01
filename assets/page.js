@@ -79,7 +79,7 @@ function loadList() {
           if(i != 0) {
               var sep = document.createElement('li');
               sep.setAttribute('role', 'separator');
-              sep.className = 'mdc-list-divider';
+              sep.className = 'list-divider';
               articlelist.appendChild(sep);
           }
 
@@ -88,15 +88,14 @@ function loadList() {
           a.getElementsByTagName("span")[2].innerHTML = 
             '<a target="_blank" href="' + articles[i].url + '">' + articles[i].title + "</a>";
           a.getElementsByTagName("span")[3].textContent = articles[i].desc;
-          a.getElementsByTagName("span")[4].dataset.articleId = i;
-          a.getElementsByTagName("span")[4].onclick = function(e) { deleteArticle(e) };
+          a.getElementsByTagName("button")[0].dataset.articleId = i;
+          a.getElementsByTagName("button")[0].onclick = function(e) { deleteArticle(e) };
           articlelist.appendChild(a);
         }
     }
 }
 
 function deleteArticle(e) {
-
     console.log(e.target.dataset.articleId);
 } 
 
@@ -155,11 +154,28 @@ function loadUrl(e) {
         });
 }
 
-document.querySelectorAll('.mdc-text-field').forEach(
-    function(ele) {
-        mdc.textField.MDCTextField.attachTo(ele);
-    }
-);
+function initTextField() {
+    let inputEl = document.querySelector('.textfield-box input');
+    let boxEl = document.querySelector('.textfield-box');
+
+    inputEl.addEventListener('keyup', e => {
+      if(e.keyCode == 13) {
+          loadUrl(e);
+      }
+    });
+
+    inputEl.addEventListener('focus', e => {
+      boxEl.className = 'textfield-box box-selected';
+    });
+
+    inputEl.addEventListener('blur', e => {
+      boxEl.className = 'textfield-box';
+    });
+
+    this.addEventListener('click', e => {
+      inputEl.focus();
+    });    
+}
 
 
 function encodeBase64(str) {
@@ -169,3 +185,5 @@ function encodeBase64(str) {
 function decodeBase64(str) {
     return decodeURIComponent(escape(atob(str)));
 }
+
+initTextField();

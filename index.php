@@ -33,13 +33,7 @@ if(!isset($_GET["id"])) {
         <meta name="theme-color" content="#b63ff6" />
 
         <title>Stuff to buy</title>
- 
-        <link rel="preload" href="/external/material-components-web.min.css" as="style">
-        <link rel="preload" href="/external/material-components-web.min.js" as="script">
-        <link rel="preload" href="/external/material-icons.css" as="style">
 
-        <link href="/external/material-components-web.min.css" rel="stylesheet">
-        <link href="/external/material-icons.css" rel="stylesheet" rel="preload">
         <style>
             <?php echo require_once("assets/style.css") ?>
         </style>
@@ -49,31 +43,30 @@ if(!isset($_GET["id"])) {
             <img id="logo" alt="Stuff to buy" src="assets/logo.svg" />
 
             <div id="maincontent">
-
-                <div class="fullwidth mdc-text-field mdc-text-field--with-leading-icon">
-                    <i class="material-icons mdc-text-field__icon">link</i>
-                    <input class="mdc-text-field__input" id="urlinput" onchange="loadUrl(event)">
-                    <div class="mdc-line-ripple"></div>
-                    <label for="urlinput" class="mdc-floating-label">Paste product URL here and press enter</label>
+            
+                <div class="fullwidth">
+                    <div class="textfield-box">
+                        <input aria-label="Paste product URL here and press enter" placeholder=" " />
+                        <label>Paste product URL here and press enter<label>
+                    </div>
                 </div>
 
-                <ul class="white mdc-list mdc-list--two-line" id="articlelist">                 
+                <ul class="white" id="articlelist">                 
                 </ul>                    
             </div>
         </div>
         
         <template>
-            <li class="mdc-list-item">
-                <span class="mdc-list-item__graphic" aria-hidden="true"><img width="50" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/></span>
-                <span class="mdc-list-item__text">
-                    <span class="mdc-list-item__primary-text">Two-line item</span>                
-                    <span class="mdc-list-item__secondary-text">Secondary text</span>
+            <li class="list-item">
+                <span class="list-item__graphic" aria-hidden="true"><img width="50" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/></span>
+                <span class="list-item__text">
+                    <span class="list-item__primary-text">Two-line item</span>                
+                    <span class="list-item__secondary-text">Secondary text</span>
                 </span>
-                <span class="mdc-list-item__meta material-icons" aria-hidden="true">delete</span>                
+                <button class="list-item__button delete-button">Delete</button>
             </li>
         </template>
 
-        <script src="/external/material-components-web.min.js"></script>
         <script>
             <?php echo require_once("assets/page.js") ?>
 
