@@ -20,32 +20,10 @@ body {
     border-radius: 5px;
 }
 
-@media only screen and (max-width: 860px) {
-    #content {
-        margin: 0;
-        width: 95%;
-        padding: 10px;
-        border-radius: 0;
-    }
 
-    #logo {
-        width: 80%;
-    }
-
-    .fullwidth {
-        margin: 40px 30px;
-        width: auto;
-    }
-
-    p {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 1rem;
-    }
-}
-
-p {
+li {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 20pt;
+    font-size: 14pt;
 }
 
 #maincontent {
@@ -53,9 +31,26 @@ p {
     width: 90%;
 }
 
+#addItem {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #9C27B0;
+    color: white;
+    margin-left: 10px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 10px;    
+}
+
 .fullwidth {
     margin: 40px 0px;
     width: 100%;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
 }
 
 .white {
@@ -78,8 +73,6 @@ p {
     margin-right: 0;    
     color: transparent;
 }  
-
-
 
 .textfield-box {
     display: block;
@@ -144,6 +137,12 @@ p {
 .list-item__graphic {
     flex: 1;
 }
+
+.list-item__graphic img {
+    max-width: 50px;
+    max-height: 60px;
+}
+
 .list-item__text {
     padding: 0 10px;
     flex: 10;
@@ -155,4 +154,41 @@ p {
 .list-divider {
     list-style-type: none;
     border-top: 1px solid #DDD;
+}
+
+@media only screen and (max-width: 860px) {
+    #content {
+        margin: 0;
+        width: 95%;
+        padding: 10px;
+        border-radius: 0;
+    }
+
+    #logo {
+        width: 80%;
+    }
+
+    .fullwidth {
+        margin: 40px 30px;
+        width: auto;
+    }
+
+    li {
+        font-size: 10pt;
+    }
+
+    .textfield-box label {
+        font-size: 10pt;
+    }    
+
+    .textfield-box input:focus + label,
+    .textfield-box input:not(:placeholder-shown) + label {
+        font-size: 10pt;
+    }
+
+    #addItem {
+        font-size: 10pt;
+        padding: 0 10px;
+        border-radius: 5px;
+    }
 }

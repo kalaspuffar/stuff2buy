@@ -44,11 +44,13 @@ if(!isset($_GET["id"])) {
 
             <div id="maincontent">
             
-                <div class="fullwidth">
+                <div class="fullwidth flex-row">
                     <div class="textfield-box">
                         <input aria-label="Paste product URL here and press enter" placeholder=" " />
                         <label>Paste product URL here and press enter<label>
                     </div>
+
+                    <button id="addItem">ADD</button>
                 </div>
 
                 <ul class="white" id="articlelist">                 
@@ -58,7 +60,7 @@ if(!isset($_GET["id"])) {
         
         <template>
             <li class="list-item">
-                <span class="list-item__graphic" aria-hidden="true"><img width="50" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/></span>
+                <span class="list-item__graphic" aria-hidden="true"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"/></span>
                 <span class="list-item__text">
                     <span class="list-item__primary-text">Two-line item</span>                
                     <span class="list-item__secondary-text">Secondary text</span>
