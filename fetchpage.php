@@ -13,16 +13,20 @@ $context = stream_context_create($opts);
 $content = file_get_contents($_GET["url"], false, $context);
 
 $data = array();
+$data['title'] = '';
+$data['desc'] = '';
+$data['img'] = '';
 
 preg_match_all('/<meta.*property="og:title".*content="(.*)"/', $content, $matches);
 if(!isset($matches[1][0])) {
     preg_match_all('/<span.*id="productTitle".*>([^<]+)/', $content, $matches);
 }
-$data['title'] = trim($matches[1][0]);
+if(isset($matches[1]) && isset($matches[1][0])) {
+    $data['title'] = trim($matches[1][0]);
+}
 
-$data['desc'] = '';
 preg_match_all('/<meta.*property="og:description".*content="(.*)"/', $content, $matches);
-if(isset($matches[1][0])) {
+if(isset($matches[1]) && isset($matches[1][0])) {
     $data['desc'] = trim($matches[1][0]);
 }
 
@@ -31,6 +35,8 @@ if(!isset($matches[1][0])) {
     preg_match_all('/<img.*src="([^"]+)".*id="landingImage/', $content, $matches);
 }
 
-$data['img'] = trim($matches[1][0]); 
+if(isset($matches[1]) && isset($matches[1][0])) {
+    $data['img'] = trim($matches[1][0]); 
+}
 
 echo json_encode($data);

@@ -1,4 +1,5 @@
 var articlelist = document.getElementById('articlelist');
+var addItem = document.getElementById('addItem');
 
 window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 if (!window.indexedDB) {
@@ -11,7 +12,7 @@ request.onerror = function(event) {
 };
 request.onupgradeneeded = function(event) {
     db = event.target.result;  
-    let articles = db.createObjectStore('articles', {autoIncrement: true});
+    let articles = db.createObjectStore('articles', {keyPath: 'id', autoIncrement:true});
 }
 
 request.onsuccess = function(event) {
@@ -61,44 +62,64 @@ function merge(listA, listB) {
     return listB;
 }
 
+function updateGUIForArticle(i, item, articleId, article) {
+    if(i != 0) {
+        var sep = document.createElement('li');
+        sep.setAttribute('role', 'separator');
+        sep.className = 'list-divider';
+        articlelist.appendChild(sep);
+    }
+    var a = document.importNode(item, true);
+    a.id = 'article_' + articleId;
+    a.getElementsByTagName("img")[0].src = article.img;
+    a.getElementsByTagName("span")[2].innerHTML = 
+      '<a target="_blank" href="' + article.url + '">' + article.title + "</a>";
+    a.getElementsByTagName("span")[3].textContent = article.desc;
+    a.getElementsByTagName("button")[0].dataset.articleId = articleId;
+    a.getElementsByTagName("button")[0].onclick = function(e) { deleteArticle(e) };
+    articlelist.appendChild(a);
+}
+
 function loadList() {
     var tx = db.transaction("articles", "readwrite");
     var store = tx.objectStore("articles");
 
     articlelist.innerHTML = '';
 
-    var request = store.getAll();
+    var request = store.getAllKeys();
     request.onsuccess = async function(event) {
-        var temp, item, a, i;
+        var temp, i;
         temp = document.getElementsByTagName("template")[0];
         item = temp.content.querySelector("li");
         
         var articles = event.target.result;
 
-        for (i = 0; i < articles.length; i++) {
-          if(i != 0) {
-              var sep = document.createElement('li');
-              sep.setAttribute('role', 'separator');
-              sep.className = 'mdc-list-divider';
-              articlelist.appendChild(sep);
-          }
-
-          a = document.importNode(item, true);
-          a.getElementsByTagName("img")[0].src = articles[i].img;
-          a.getElementsByTagName("span")[2].innerHTML = 
-            '<a target="_blank" href="' + articles[i].url + '">' + articles[i].title + "</a>";
-          a.getElementsByTagName("span")[3].textContent = articles[i].desc;
-          a.getElementsByTagName("span")[4].dataset.articleId = i;
-          a.getElementsByTagName("span")[4].onclick = function(e) { deleteArticle(e) };
-          articlelist.appendChild(a);
+        for (i = 0; i < articles.length; i++) {  
+            const articleId = articles[i];
+            const rowId = i;
+            var requestItem = store.get(articleId);
+                       
+            requestItem.onsuccess = async function(event) {
+                updateGUIForArticle(rowId, item, articleId, event.target.result);
+            }
         }
     }
 }
 
 function deleteArticle(e) {
+    const tx = db.transaction("articles", "readwrite");
+    var store = tx.objectStore("articles");
 
-    console.log(e.target.dataset.articleId);
-} 
+    const removeArticleId = Number(e.target.dataset.articleId);
+
+    var removeObjectRequest = store.delete(removeArticleId);
+
+    removeObjectRequest.onsuccess = function(event) {
+        var removedElement = document.getElementById('article_' + removeArticleId);
+        removedElement.style.display = 'none';        
+        saveList();
+    };
+}
 
 function getId() {
     var urlParams = new URLSearchParams(window.location.search);
@@ -135,8 +156,8 @@ function saveList() {
     }        
 }
 
-function loadUrl(e) {
-    fetch('fetchpage.php?url=' + encodeURI(e.target.value))
+function loadUrl(inputBox) {
+    fetch('fetchpage.php?url=' + encodeURI(inputBox.value))
         .then(resp => {
             return resp.json();
         })
@@ -144,22 +165,39 @@ function loadUrl(e) {
             var tx = db.transaction("articles", "readwrite");
             var store = tx.objectStore("articles");
         
-            json.url = e.target.value;
+            json.url = inputBox.value;
             store.add(json);
 
             setTimeout(function() {
-                e.target.value = '';
+                inputBox.value = '';
                 loadList();
                 saveList();
             }, 1000);
         });
 }
 
-document.querySelectorAll('.mdc-text-field').forEach(
-    function(ele) {
-        mdc.textField.MDCTextField.attachTo(ele);
-    }
-);
+function initTextField() {
+    let inputEl = document.querySelector('.textfield-box input');
+    let boxEl = document.querySelector('.textfield-box');
+
+    inputEl.addEventListener('keyup', e => {
+      if(e.keyCode == 13) {
+          loadUrl(e.target);
+      }
+    });
+
+    inputEl.addEventListener('focus', e => {
+      boxEl.className = 'textfield-box box-selected';
+    });
+
+    inputEl.addEventListener('blur', e => {
+      boxEl.className = 'textfield-box';
+    });
+
+    this.addEventListener('click', e => {
+      inputEl.focus();
+    });    
+}
 
 
 function encodeBase64(str) {
@@ -169,3 +207,10 @@ function encodeBase64(str) {
 function decodeBase64(str) {
     return decodeURIComponent(escape(atob(str)));
 }
+
+initTextField();
+
+addItem.addEventListener('click', e => {
+    let inputEl = document.querySelector('.textfield-box input');
+    loadUrl(inputEl);
+});
