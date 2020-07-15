@@ -1,5 +1,6 @@
 var articlelist = document.getElementById('articlelist');
-var addItem = document.getElementById('addItem');
+var addItemButton = document.getElementById('addItem');
+var reportURLButton = document.getElementById('reportURL');
 
 window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
 if (!window.indexedDB) {
@@ -20,15 +21,13 @@ request.onsuccess = function(event) {
     var tx = db.transaction("articles", "readwrite");
     var store = tx.objectStore("articles");
 
-    articlelist.innerHTML = '';
-
     var request = store.getAll();
     request.onsuccess = async function(event) {
         var newArticles = event.target.result;
         var oldArticles = await loadData();
 
         var articles = merge(newArticles, oldArticles);
-
+        
         var tx = db.transaction("articles", "readwrite");
         var store = tx.objectStore("articles");
         var objectStoreRequest = store.clear();
@@ -84,8 +83,6 @@ function loadList() {
     var tx = db.transaction("articles", "readwrite");
     var store = tx.objectStore("articles");
 
-    articlelist.innerHTML = '';
-
     var request = store.getAllKeys();
     request.onsuccess = async function(event) {
         var temp, i;
@@ -93,14 +90,17 @@ function loadList() {
         item = temp.content.querySelector("li");
         
         var articles = event.target.result;
-
-        for (i = 0; i < articles.length; i++) {  
-            const articleId = articles[i];
-            const rowId = i;
-            var requestItem = store.get(articleId);
-                       
-            requestItem.onsuccess = async function(event) {
-                updateGUIForArticle(rowId, item, articleId, event.target.result);
+        
+        if (articles.length > 0) {
+            articlelist.innerHTML = '';
+            for (i = 0; i < articles.length; i++) {  
+                const articleId = articles[i];
+                const rowId = i;
+                var requestItem = store.get(articleId);
+                           
+                requestItem.onsuccess = async function(event) {
+                    updateGUIForArticle(rowId, item, articleId, event.target.result);
+                }
             }
         }
     }
@@ -165,7 +165,6 @@ function loadUrl(inputBox) {
             var tx = db.transaction("articles", "readwrite");
             var store = tx.objectStore("articles");
         
-            json.url = inputBox.value;
             store.add(json);
 
             setTimeout(function() {
@@ -175,6 +174,24 @@ function loadUrl(inputBox) {
             }, 1000);
         });
 }
+
+function reportUrl(inputBox) {        
+    fetch('report.php', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *client
+        body: 'id=' + getId() + '&url=' + encodeBase64(inputBox.value)
+    }).catch(e => {
+        console.log(e);
+    });
+}
+
 
 function initTextField() {
     let inputEl = document.querySelector('.textfield-box input');
@@ -210,7 +227,12 @@ function decodeBase64(str) {
 
 initTextField();
 
-addItem.addEventListener('click', e => {
+addItemButton.addEventListener('click', e => {
     let inputEl = document.querySelector('.textfield-box input');
     loadUrl(inputEl);
+});
+
+reportURLButton.addEventListener('click', e => {
+    let inputEl = document.querySelector('.textfield-box input');
+    reportUrl(inputEl);
 });

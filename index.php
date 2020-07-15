@@ -50,10 +50,15 @@ if(!isset($_GET["id"])) {
                         <label>Paste product URL here and press enter<label>
                     </div>
 
-                    <button id="addItem">ADD</button>
+                    <button id="addItem" class="button">ADD</button>
+                    <button id="reportURL" class="button">REPORT</button>
                 </div>
 
-                <ul class="white" id="articlelist">                 
+                <ul class="white" id="articlelist">
+                    <div class="helptext">
+                        You will see your products here if you have added any products via field above.<br><br>
+                        If a link is not working for any reason please use the report button in order to send us the link so we can fix the issue.
+                    </div>
                 </ul>                    
             </div>
         </div>
